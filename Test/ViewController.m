@@ -35,6 +35,21 @@
     factTableView.estimatedRowHeight = 80.0;
     factTableView.rowHeight = UITableViewAutomaticDimension;
     factTableView.tableFooterView = [[UIView alloc]initWithFrame:CGRectZero];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(receiveFactNotification:)
+                                                 name:@"FactNotification"
+                                               object:nil];
+
+}
+
+- (void) receiveFactNotification:(NSNotification *) notification
+{
+    if ([[notification name] isEqualToString:@"FactNotification"]){
+        
+         [self doSomethingWithTheJson];
+    }
 }
 
 -(void)viewDidAppear:(BOOL)animated{
@@ -69,8 +84,7 @@
     } else {
         
         [[FactSingleton sharedManager]getFactsFromURL];
-        
-        [self doSomethingWithTheJson];
+       
     }
 }
 

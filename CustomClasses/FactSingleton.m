@@ -40,6 +40,10 @@
         NSArray* arrData = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&parseError];
         NSLog(@"The new response is - %@",arrData);
         
+        [[NSNotificationCenter defaultCenter]
+         postNotificationName:@"FactNotification"
+         object:self];
+        
     }];
     
     [downloadTask resume];
